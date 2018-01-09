@@ -13,19 +13,13 @@ To build :
 
 For version 2 asked:
 
-g++ -fpermissive -Wall GPIOClass.cpp GPIOon.cpp -o gpioon
-
-g++ -fpermissive -Wall GPIOClass.cpp GPIOoff.cpp -o gpiooff
+sudo make v2
 
 each script will trigger on or off the pin.
 
 For version 4 asked :
 
-g++ -fpermissive -Wall GPIOClass.cpp GPIOserver.cpp -o serv
-
-g++ -fpermissive -Wall GPIOservon.cpp -o servon
-
-g++ -fpermissive -Wall GPIOservoff.cpp -o servoff
+sudo make
 
 serv is the server. start as sudo.
 
@@ -37,4 +31,3 @@ In Progress :
 ============================================================================================================
 
 parse console information.
-cleanup things. (almost done)
