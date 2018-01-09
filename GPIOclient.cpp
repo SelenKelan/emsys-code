@@ -18,32 +18,20 @@ typedef struct sockaddr SOCKADDR;
  
 int main(int argc, char* argv[])
 {
-    char ip="127.0.0.1";
-    char msg="allumer";
-    if (argc < 4) { // Check the value of argc. If not enough parameters have been passed, inform user and exit.
+    char ip[32]="127.0.0.1";
+    char buffer[32]="allumer";
+    if (argc != 5) { // Check the value of argc. If not enough parameters have been passed, inform user and exit.
         std::cout << "Usage is -ip <ip> -msg <msg>\n"; // Inform the user of how to use the program
-        std::cin.get();
         exit(0);
     }
-    else { // if we got enough parameters...
-        std::cout << argv[0];
-        for (int i = 1; i < argc; i++) { 
-            if (i + 1 != argc) // Check that we haven't finished parsing already
-                if (argv[i] == "-i") {
-                    ip = *(argv[i + 1]);
-                } else if (argv[i] == "-m") {
-                    msg = *(argv[i + 1]);
-                } else {
-                    std::cout << "Not enough or invalid arguments, please try again.\n"; 
-                    exit(0);
-            }
-            std::cout << argv[i] << " ";
-        }
-    }
+
+
+
+
+
     int erreur = 0;
     int sock_err;
-    char buffer = msg;
-  
+      
     SOCKET sock;
     SOCKADDR_IN sin;
  
