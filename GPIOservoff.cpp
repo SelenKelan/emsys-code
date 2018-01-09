@@ -20,7 +20,7 @@ int main(void)
 {
     int erreur = 0;
     int sock_err;
-    char buffer[32] = "allumage";
+    char buffer[32] = "off";
   
     SOCKET sock;
     SOCKADDR_IN sin;

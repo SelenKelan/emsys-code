@@ -19,7 +19,7 @@ typedef struct sockaddr SOCKADDR;
 int main(void)
 {
     int erreur = 0;
-    
+    char buffer[32]=""; 
     /* Socket et contexte d'adressage du serveur */
     SOCKADDR_IN sin;
     SOCKET sock;
@@ -52,7 +52,9 @@ int main(void)
             /* Si la socket fonctionne */
             if(sock_err != SOCKET_ERROR)
             {
-                /* Démarrage du listage (mode server) */
+                while(buffer[0] != 'o')
+		{
+		/* Démarrage du listage (mode server) */
                 sock_err = listen(sock, 5);
                 printf("Listage du port %d...\n", PORT);
                 
@@ -63,10 +65,17 @@ int main(void)
                     printf("Patientez pendant que le client se connecte sur le port %d...\n", PORT);
                     csock = accept(sock, (SOCKADDR*)&csin, &crecsize);
                     printf("Un client se connecte avec la socket %d de %s:%d\n", csock, inet_ntoa(csin.sin_addr), htons(csin.sin_port));
-                }
+                    
+		    sock_err=recv(csock,buffer,32,0);
+		    if(sock_err != SOCKET_ERROR)
+                        printf("Recu : %s\n", buffer);
+
+		}
                 else
                     perror("listen");
+		}
             }
+
             else
                 perror("bind");
             
