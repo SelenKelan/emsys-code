@@ -10,11 +10,16 @@ typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;
 typedef struct sockaddr SOCKADDR;
  
+#include <iostream>
+#include <errno.h>
+#include <signal.h>
+#include "GPIOClass.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #define PORT 23
  
- 
+using namespace std; 
  
 int main(void)
 {
@@ -49,6 +54,11 @@ int main(void)
             sin.sin_port = htons(PORT);               /* Listage du port */
             sock_err = bind(sock, (SOCKADDR*)&sin, recsize);
             
+	    /*démarrage des GPIO*/
+	    GPIOClass* gpio17 = new GPIOClass("17");
+	    gpio17->export_gpio();
+	    gpio17->setdir_gpio("in");
+	    
             /* Si la socket fonctionne */
             if(sock_err != SOCKET_ERROR)
             {
@@ -68,7 +78,19 @@ int main(void)
                     
 		    sock_err=recv(csock,buffer,32,0);
 		    if(sock_err != SOCKET_ERROR)
-                        printf("Recu : %s\n", buffer);
+                    {
+			printf("Recu : %s\n", buffer);
+			if(buffer[0] == 'a')
+			{
+			    gpio17->setval_gpio("1");
+			    printf("gpio on");
+			}
+			else
+			{
+			    gpio17->setval_gpio("0");
+		            printf("gpio off");
+			}
+		    }	
 
 		}
                 else
