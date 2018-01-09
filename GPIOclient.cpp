@@ -18,13 +18,13 @@ typedef struct sockaddr SOCKADDR;
  
 int main(int argc, char* argv[])
 {
-    char ip[32]="127.0.0.1";
-    char buffer[32]="allumer";
+    char* ip="127.0.0.1";
+    char* buffer="allumer";
     if (argc != 5) { // Check the value of argc. If not enough parameters have been passed, inform user and exit.
         std::cout << "Usage is -i <ip> -m <msg>\n"; // Inform the user on how to use the program
         exit(0);
     }
-    char * options = "i:m:";
+    const char * options = "i:m:";
     int option;
     while((option = getopt(argc, argv, options)) != -1)
     {
