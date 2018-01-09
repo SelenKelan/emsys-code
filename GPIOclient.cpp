@@ -21,13 +21,28 @@ int main(int argc, char* argv[])
     char ip[32]="127.0.0.1";
     char buffer[32]="allumer";
     if (argc != 5) { // Check the value of argc. If not enough parameters have been passed, inform user and exit.
-        std::cout << "Usage is -ip <ip> -msg <msg>\n"; // Inform the user of how to use the program
+        std::cout << "Usage is -i <ip> -m <msg>\n"; // Inform the user on how to use the program
         exit(0);
     }
+    char * options = "i:m:";
+    int option;
+    while((option = getopt(argc, argv, options)) != -1)
+    {
+        switch(option)
+        {
+            case 'i':
+	        ip = optarg;       // If the -i option is set, then ip takes the value of optarg (next inline 'block')
+                break;
 
+            case 'm':
+                buffer = optarg;   // If the -m option is set, then buffer takes the value of optarg (next inline 'block')
+                break;
 
-
-
+            case '?':
+                fprintf(stderr, "Invalid option %c\n", optopt);
+                exit(EXIT_FAILURE);
+        }
+    }
 
     int erreur = 0;
     int sock_err;
