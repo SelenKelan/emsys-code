@@ -18,23 +18,21 @@ typedef struct sockaddr SOCKADDR;
  
 int main(int argc, char* argv[])
 {
-    if (argc < 5) { // Check the value of argc. If not enough parameters have been passed, inform user and exit.
-        std::cout << "Usage is -ip <ip> -port <port> -msg <msg>\n"; // Inform the user of how to use the program
+    char ip="127.0.0.1";
+    char msg="allumer";
+    if (argc < 4) { // Check the value of argc. If not enough parameters have been passed, inform user and exit.
+        std::cout << "Usage is -ip <ip> -msg <msg>\n"; // Inform the user of how to use the program
         std::cin.get();
         exit(0);
     }
     else { // if we got enough parameters...
-        char* ip, port, msg;
         std::cout << argv[0];
         for (int i = 1; i < argc; i++) { 
             if (i + 1 != argc) // Check that we haven't finished parsing already
-                if (argv[i] == "-ip") {
-                    // We know the next argument *should* be the filename:
-                    ip = argv[i + 1];
-                } else if (argv[i] == "-port") {
-                    port = argv[i + 1];
-                } else if (argv[i] == "-msg") {
-                    msg = argv[i + 1];
+                if (argv[i] == "-i") {
+                    ip = *(argv[i + 1]);
+                } else if (argv[i] == "-m") {
+                    msg = *(argv[i + 1]);
                 } else {
                     std::cout << "Not enough or invalid arguments, please try again.\n"; 
                     exit(0);
@@ -44,7 +42,7 @@ int main(int argc, char* argv[])
     }
     int erreur = 0;
     int sock_err;
-    char buffer[32] = msg;
+    char buffer = msg;
   
     SOCKET sock;
     SOCKADDR_IN sin;
